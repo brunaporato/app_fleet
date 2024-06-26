@@ -18,7 +18,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#202024"
-      }
+      },
+      "package": "com.brunaporato.ignitefleet"
     },
     "web": {
       "favicon": "./assets/favicon.png"

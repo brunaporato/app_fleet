@@ -1,6 +1,5 @@
 import { TouchableOpacityProps } from 'react-native';
-import { Container, Title } from './styles';
-import { Loading } from '../Loading';
+import { Container, Loading, Title } from './styles';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string

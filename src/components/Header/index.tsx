@@ -3,17 +3,21 @@ import { Container, Greeting, Message, Name, Picture } from './styles';
 import { Power } from 'phosphor-react-native';
 import theme from '../../theme';
 import { useApp, useUser } from '@realm/react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function Header() {
   const user = useUser()
   const app = useApp()
+  const insets = useSafeAreaInsets()
+
+  const paddingTop = insets.top + 16
 
   function handleLogout() {
     app.currentUser?.logOut()
   }
 
   return (
-    <Container>
+    <Container style={{ paddingTop }}>
       <Picture
         source={{uri: user.profile.pictureUrl }}
         placeholder="U184i9offjof00ayf7ay~qjtj[jt9FfRfQfk"

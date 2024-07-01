@@ -6,7 +6,7 @@ import { Routes } from './src/routes';
 
 import theme from './src/theme';
 import { Roboto_400Regular, Roboto_700Bold, useFonts } from '@expo-google-fonts/roboto';
-import { AppProvider, UserProvider } from '@realm/react';
+import { AppProvider, RealmProvider, UserProvider } from '@realm/react';
 import { REALM_APP_ID } from '@env';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -23,7 +23,9 @@ export default function App() {
         <SafeAreaProvider>
           <StatusBar barStyle='light-content' backgroundColor='transparent' translucent />
           <UserProvider fallback={SignIn}>
-            <Routes />
+            <RealmProvider>
+              <Routes />
+            </RealmProvider>
           </UserProvider>
         </SafeAreaProvider>
       </ThemeProvider>

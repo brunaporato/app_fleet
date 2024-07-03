@@ -1,18 +1,32 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Container, Content } from './styles';
 import { DepartureHeader } from '../../components/DepartureHeader';
 import { LicensePlateInput } from '../../components/LicensePlateInput';
 import { TextAreaInput } from '../../components/TextAreaInput';
 import { Button } from '../../components/Button';
-import { KeyboardAvoidingView, Platform, ScrollView, TextInput } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, TextInput } from 'react-native';
+import { licensePlateValidate } from '../../utils/licensePlateValidate';
 
 const keyboardAvoidingViewBehavior = Platform.OS === 'android' ? 'height' : 'position';
 
 export function Departure() {
+  const [description, setDescription] = useState('')
+  const [licensePlate, setLicensePlate] = useState('')
+
   const descriptionRef = useRef<TextInput>(null)
+  const licensePlateRef = useRef<TextInput>(null)
 
   function handleRegisterDeparture() {
-    console.log('Departure registered')
+    if(!licensePlateValidate(licensePlate)) {
+      licensePlateRef.current?.focus()
+      return Alert.alert("License plate invalid", "Please enter a valid license plate")
+    }
+
+    if(description.trim().length === 0) {
+      descriptionRef.current?.focus()
+      return Alert.alert("Description is required", "Please enter a purpose for this departure")
+    }
+
   }
 
   return (
@@ -23,17 +37,20 @@ export function Departure() {
           <Content>
             <LicensePlateInput
               label='License Plate'
-              placeholder='BRA-1234'
+              placeholder='BRA1234'
               onSubmitEditing={() => descriptionRef.current?.focus()}
               returnKeyType='next'
+              onChangeText={setLicensePlate}
+              ref={licensePlateRef}
             />
             <TextAreaInput
-              label='Purpose'
+              label='Description'
               placeholder="I'll use this vehicle for..."
               ref={descriptionRef}
               onSubmitEditing={handleRegisterDeparture}
               returnKeyType='send'
               blurOnSubmit
+              onChangeText={setDescription}
             />
 
             <Button

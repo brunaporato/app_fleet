@@ -8,7 +8,7 @@ import { History } from '../../libs/realm/schemas/History';
 export function Home() {
   const { navigate } = useNavigation()
 
-  // const history = useQuery(History)
+  const history = useQuery(History)
 
   function handleRegisterMovement() {
     navigate('departure')

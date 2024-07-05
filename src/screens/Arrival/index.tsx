@@ -40,6 +40,25 @@ export function Arrival() {
     navigation.goBack()
   }
 
+  function handleArrivalRegister() {
+    try {
+      if(!history) {
+        throw new Error('History not found')
+      }
+
+      realm.write(() => {
+        history.status = 'arrival',
+        history.updated_at = new Date()
+      })
+
+      Alert.alert('Success', 'Arrival registered successfully.')
+      navigation.goBack()
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Error', 'An error ocurred while registering the arrival. Try again later.')
+    }
+  }
+
   return (
     <Container>
       <DepartureHeader title='Arrival' />
@@ -56,7 +75,7 @@ export function Arrival() {
 
         <Footer>
           <ButtonIcon icon={X} onPress={handleCancelRegistration} />
-          <Button title='Register Arrival' />
+          <Button title='Register Arrival' onPress={handleArrivalRegister} />
         </Footer>
 
       </Content>

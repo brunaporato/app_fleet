@@ -32,6 +32,12 @@ export function Home() {
     }
   }
 
+  // Fetch vehicle in use on component mount
+  useEffect(() => {
+    fetchVehicleInUse()
+  }, [])
+
+  // Listen to changes on realm database
   useEffect(() => {
     realm.addListener('change', () => fetchVehicleInUse())
 

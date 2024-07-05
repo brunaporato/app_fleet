@@ -4,6 +4,9 @@ import { DepartureHeader } from '../../components/DepartureHeader';
 import { Button } from '../../components/Button';
 import { ButtonIcon } from '../../components/ButtonIcon';
 import { X } from 'phosphor-react-native';
+import { useObject } from '../../libs/realm';
+import { History } from '../../libs/realm/schemas/History';
+import { BSON } from 'realm';
 
 type RouteParamsProps = {
   id: string
@@ -13,18 +16,20 @@ export function Arrival() {
   const route = useRoute()
   const { id } = route.params as RouteParamsProps
 
+  const history = useObject(History, new BSON.UUID(id) as unknown as string)
+
   return (
     <Container>
       <DepartureHeader title='Arrival' />
       <Content>
         <Label>License Plate</Label>
         <LicensePlate>
-          XXX0000
+          {history?.license_plate}
         </LicensePlate>
 
         <Label>Description</Label>
         <Description>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptas? Itaque, soluta! Aspernatur, corporis debitis odio ducimus magnam vel quis fuga velit molestias et similique error id exercitationem sunt eaque.
+          {history?.description}
         </Description>
 
         <Footer>

@@ -32,6 +32,10 @@ export function Home() {
     }
   }
 
+  function fetchHistory() {
+    history.filtered("status = 'arrival' SORT(created_at DESC)")
+  }
+
   // Fetch vehicle in use on component mount
   useEffect(() => {
     fetchVehicleInUse()
@@ -45,6 +49,10 @@ export function Home() {
       realm.removeListener('change', fetchVehicleInUse)
     }
   }, [])
+
+  useEffect(() => {
+    fetchHistory()
+  }, [history])
 
   return (
     <Container>

@@ -7,6 +7,7 @@ export type HistoryCardProps = {
   licensePlate: string
   createdAt: string
   isSync: boolean
+  id: string
 }
 
 type Props = TouchableOpacityProps & {
